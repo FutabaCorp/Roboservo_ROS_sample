@@ -1,0 +1,9 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~Joint_name" : \b [str] A list of joints name min: roboservo_1, default: roboservo_1, max: roboservo_3
+- \b "~Profile_velocity" : \b [int] Profile velocity min: 1, default: 1000, max: 6400
+- \b "~Profile_acceleration" : \b [int] Profile acceleration min: 1, default: 1000, max: 30000
+- \b "~Profile_deceleration" : \b [int] Profile decceleration min: 1, default: 1000, max: 30000
+

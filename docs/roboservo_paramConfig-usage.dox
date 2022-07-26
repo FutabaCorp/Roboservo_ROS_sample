@@ -1,0 +1,10 @@
+\subsubsection usage Usage
+\verbatim
+<node name="roboservo_sample" pkg="roboservo_sample" type="roboservo_sample">
+  <param name="Joint_name" type="str" value="roboservo_1" />
+  <param name="Profile_velocity" type="int" value="1000" />
+  <param name="Profile_acceleration" type="int" value="1000" />
+  <param name="Profile_deceleration" type="int" value="1000" />
+</node>
+\endverbatim
+

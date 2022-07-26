@@ -1,0 +1,34 @@
+# CANopen Bus layer
+bus:
+  device: can0 # socketcan network
+sync:
+  interval_ms: 100 # set to 0 to disable sync
+  overflow: 0 # overflow sync counter at value or do not set it (0, default)
+heartbeat: # simple heartbeat producer, optional!
+  rate: 1 # heartbeat rate
+  msg: "77f#05" # message to send, cansend format: heartbeat of node 127 with status 5=Started
+
+# ROS layer
+defaults: # optional, all defaults can be overwritten per node
+  publish: ["6041"] # object to publish
+  # canopen_chain_node settings
+  motor_allocator: canopen::Motor402::Allocator # select allocator for motor layer
+  motor_layer: # settings passed to motor layer (plugin-specific)
+    switching_state: 3 # (Operation_Enable), state for mode switching
+  pos_to_device: "262144*rint(rad2deg(pos))/360" # rad -> inc
+  pos_from_device: "deg2rad(360*obj6064/262144)" # actual position [inc] -> rad
+  vel_to_device: "60*rint(rad2deg(vel))/360" # rad/s -> rpm
+  vel_from_device: "rint(obj606C/10)*0.1047" # actual velocity [rpm] -> rad/s
+  eff_to_device: "rint(eff)" # just round to integer
+  eff_from_device: "0" # unset
+
+# Node layer
+nodes:
+  roboservo_1:
+    id: 1
+    eds_pkg: roboservo_sample
+    eds_file: "/dcf/Futaba_Roboservo_Series.dcf" # path of eds(dcf) file
+  roboservo_2:
+    id: 2
+    eds_pkg: roboservo_sample
+    eds_file: "/dcf/Futaba_Roboservo_Series.dcf" # path of eds(dcf) file

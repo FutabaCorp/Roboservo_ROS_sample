@@ -1,0 +1,17 @@
+
+# Publish all joint states -----------------------------------
+state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+# Roboservo controllers ---------------------------------------
+roboservo1_position_controller:
+  joint: roboservo_1
+  # Profile position mode
+  type: position_controllers/JointPositionController
+  required_drive_mode: 1
+roboservo2_position_controller:
+  joint: roboservo_2
+  # Profile position mode
+  type: position_controllers/JointPositionController
+  required_drive_mode: 1

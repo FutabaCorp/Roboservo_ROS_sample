@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- set urdf -->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find roboservo_sample)/urdf/roboservo.urdf" />
+
+  <!-- set canopen -->
+  <node name="canopen_motor_node" pkg="canopen_motor_node" type="canopen_motor_node" output="screen" clear_params="true">
+    <rosparam command="load" file="$(find roboservo_sample)/cfg/setting.yaml" />
+  </node>
+
+  <!-- set controller -->
+  <!-- Roboservo_1, Roboservo_2用のコントローラを呼び出す -->
+  <rosparam command="load" file="$(find roboservo_sample)/cfg/controller.yaml" />
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+    args="state_controller roboservo1_position_controller roboservo2_position_controller"/>
+
+  <!-- initialize CANopen driver -->
+  <node name="driver_init" pkg="rosservice" type="rosservice" args="call /driver/init" />
+
+  <!-- set parameters for dynamic_reconfigure -->
+  <node name="roboservo_param_node" pkg="roboservo_sample" type="roboservo_sample_node" output="screen"/>
+  
+  <!-- start rqt_reconfigure -->
+  <node name="roboservo_param" pkg="rqt_reconfigure" type="rqt_reconfigure" output="screen"/>
+
+</launch>
